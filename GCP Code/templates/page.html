@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <script>
+    function sortTable(n) {
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("myTable");
+      switching = true;
+      // Set the sorting direction to ascending:
+      dir = "asc";
+      /* Make a loop that will continue until
+      no switching has been done: */
+      while (switching) {
+        // Start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /* Loop through all table rows (except the
+        first, which contains table headers): */
+        for (i = 1; i < (rows.length - 1); i++) {
+          // Start by saying there should be no switching:
+          shouldSwitch = false;
+          /* Get the two elements you want to compare,
+          one from current row and one from the next: */
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          /* Check if the two rows should switch place,
+          based on the direction, asc or desc: */
+          if (dir == "asc") {
+            if (parseFloat(x.innerHTML.toLowerCase()) > parseFloat(y.innerHTML.toLowerCase())) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (parseFloat(x.innerHTML.toLowerCase()) < parseFloat(y.innerHTML.toLowerCase())) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          /* If a switch has been marked, make the switch
+          and mark that a switch has been done: */
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          // Each time a switch is done, increase this count by 1:
+          switchcount ++;
+        } else {
+          /* If no switching has been done AND the direction is "asc",
+          set the direction to "desc" and run the while loop again. */
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+  </script>
+
+<!-- https://stackoverflow.com/questions/35264455/flask-python-handling-dropdown-to-open-different-html-pages
+HTML dropdown for selecting web scrape date -->
+<form id = "dynamic_select_form" action="/" method="post">
+  <select id= "dynamicSelect" name="dynamic_cr_ts">
+      {% for dt in dynamic_dt %}
+        <option value="{{dt}}">{{dt}}</option>
+      {% endfor %}
+  </select>
+  <input type="submit" value="Select Web Scrape Date">
+</form>
+
+
+
+<!-- https://stackoverflow.com/questions/35264455/flask-python-handling-dropdown-to-open-different-html-pages
+HTML dropdown for selecting web scrape date -->
+<!-- <form id = "select_form" action="/" method="post">
+    <select id= "mySelect" name="cr_ts">
+        <option value="09-17">09-17</option>
+        <option value="09-16">09-16</option>
+        <option value="09-15">09-15</option>
+        <option value="09-14">09-14</option>
+      {% for dt in dynamic_dt %}
+        <option value="{{dt}}" selected>{{dt}}</option>
+      {% endfor %}
+    </select>
+    <input type="submit" value="Select Web Scrape Date">
+</form> -->
+
+
+<script>
+//https://stackoverflow.com/questions/58123481/modifying-javascript-to-maintain-html-dropdown-menu-selection-in-flask
+//javascript for retaining the selected value in the dropdown after selecting. without this, the dropdown will always
+// revert back to default value
+//check if there's an old selection by the user:
+if (sessionStorage.getItem("selectedOption")) {
+  //to set the selected value:
+  var select = document.getElementById("dynamicSelect");
+  select.selectedIndex = sessionStorage.getItem("selectedOption"); // set index of selected element
+}
+//this will set the value to sessionStorage only when user clicks submit
+document.getElementById("dynamic_select_form").addEventListener("submit", () => {
+  //to get the selected value:
+  var select = document.getElementById("dynamicSelect");
+  sessionStorage.setItem("selectedOption", select.selectedIndex); // store index of selected element
+});
+</script> 
+
+
+  <table id="myTable" border="1">
+    <thead>
+      <tr>
+        <th align="left" width="10%""> Player</th>
+        <th align="left" width="5%"">Team</th>
+        <th align="left" width="5%" onclick="sortTable(2)">Minutes Played</th>
+        <th align="left" width="5%" onclick="sortTable(3)">Points</th>
+        <th align="left" width="5%" onclick="sortTable(4)">Assist</th>
+        <th align="left" width="5%" onclick="sortTable(5)">Rebounds</th>
+        <th align="left" width="5%" onclick="sortTable(6)">Field Goal %</th>
+        <th align="left" width="5%" onclick="sortTable(7)">3 Point %</th>
+        <th align="left" width="5%" onclick="sortTable(8)">Free Throw %</th>
+        <th align="left" width="20%" onclick="sortTable(8)">Web Scrape Date</th>
+      </tr>
+  </thead>
+    {% for row in data %}
+    <tr>
+      {% for cell in row %}
+      <td>{{ cell }}</td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

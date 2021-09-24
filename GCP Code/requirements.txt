@@ -1,0 +1,7 @@
+Flask==2.0.1
+bs4
+pandas
+google.cloud
+google-cloud-bigquery
+google
+pyarrow

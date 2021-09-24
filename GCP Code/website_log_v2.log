@@ -1,0 +1,10 @@
+2021-07-12 23:07:03,664 Application started
+2021-07-12 23:07:03,665 Inside pull_nba_data function
+2021-07-12 23:07:03,876 URL is opened
+2021-07-12 23:07:04,426 Dataframe of 29 column names has been created
+2021-07-12 23:07:05,821 Dataframe has been loaded with 239 rows
+2021-07-12 23:07:05,826 pull_nba_data is about to return a dataframe with 239 rows and 9 columns
+2021-07-12 23:07:05,826 pull_nba_data returned a dataframe with 239 rows and 9 columns
+2021-07-12 23:07:05,826 Dataframe is about to be sent to HTML
+2021-07-12 23:07:05,834 127.0.0.1 - - [12/Jul/2021 23:07:05] "GET / HTTP/1.1" 200 -
+2021-07-12 23:07:25,363  * Detected change in '/Users/stephenjanovsky/Documents/Tim Johnson/GCP Code/main.py', reloading
